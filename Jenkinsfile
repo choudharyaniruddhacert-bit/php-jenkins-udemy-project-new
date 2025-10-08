@@ -37,12 +37,12 @@ pipeline{
         }
         stage('k8s deploy dev'){
             steps{
-                sh 'kubectl apply -f deployment-dev.yaml'
+                sh 'kubectl apply -f deployment-dev.yaml -n dev'
             }
         }
         stage('k8s deploy staging'){
             steps{
-                sh 'kubectl apply -f deployment-staging.yaml'
+                sh 'kubectl apply -f deployment-staging.yaml -n staging'
             }
         }
         stage('k8s deploy prod'){
@@ -50,7 +50,7 @@ pipeline{
                 script{
                     def approval=input id: 'Productiondeploy', message: 'productiondeploy', submitter: 'admin'}
 
-                sh 'kubectl apply -f deployment-prod.yaml'
+                sh 'kubectl apply -f deployment-prod.yaml -n production'
             }
         }
     }
