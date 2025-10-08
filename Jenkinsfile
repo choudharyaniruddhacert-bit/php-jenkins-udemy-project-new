@@ -48,12 +48,8 @@ pipeline{
         stage('k8s deploy prod'){
             steps{
                 script{
-                    def approval=input {
-                        message 'deploy to production'
-                        id 'deploytoproduction'
-                        ok 'Approve'
-                        }
-                }
+                    def approval=input id: 'Productiondeploy', message: 'productiondeploy', submitter: 'admin'
+
                 sh 'kubectl apply -f deployment-prod.yaml'
             }
         }
