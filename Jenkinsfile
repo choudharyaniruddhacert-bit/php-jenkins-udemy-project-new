@@ -2,6 +2,7 @@ pipeline{
     agent any
     environment{
         dockerhubcred=credentials('dockerhubcred')
+        awscred=credentials('awscred')
     }
     stages{
         stage('code checkout'){
