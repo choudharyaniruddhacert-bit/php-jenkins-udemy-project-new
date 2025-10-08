@@ -29,5 +29,32 @@ pipeline{
 
             }
         }
+        stage('eks configure'){
+            steps{
+                sh 'aws eks update-kubeconfig --region us-east-2 --name java-project-eks-cluster'
+            }
+        }
+        stage('k8s deploy dev'){
+            steps{
+                sh 'kubectl apply -f deployment-dev.yaml'
+            }
+        }
+        stage('k8s deploy staging'){
+            steps{
+                sh 'kubectl apply -f deployment-staging.yaml'
+            }
+        }
+        stage('k8s deploy prod'){
+            steps{
+                script{
+                    def approval=input {
+                        message 'deploy to production'
+                        id 'deploytoproduction'
+                        ok 'Approve'
+                        }
+                }
+                sh 'kubectl apply -f deployment-prod.yaml'
+            }
+        }
     }
 }
