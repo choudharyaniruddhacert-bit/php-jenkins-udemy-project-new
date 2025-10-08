@@ -24,7 +24,7 @@ pipeline{
         }
         stage('docker push stage'){
             steps{
-                sh 'echo %dockerhubcre_PSW | docker login -u $dockerhubcred_USR --password-stdin'
+                sh 'echo %dockerhubcred_PSW | docker login -u $dockerhubcred_USR --password-stdin'
                 sh 'docker push aniruddhaprojectes/php-project-jenkins:latest'
 
             }
