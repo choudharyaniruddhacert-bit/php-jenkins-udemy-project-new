@@ -12,8 +12,6 @@ pipeline{
         }
         stage('run composer install'){
             steps{
-                sh 'sudo yum install php -y'
-                sh 'sudo yum install composer -y'
                 sh 'composer install'
                 sh 'composer show'
                 sh 'ls -a'
